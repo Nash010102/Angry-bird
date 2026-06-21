@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Little Angry Bird 🐦❤️</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating hearts background -->
+  <div class="bg-hearts" id="bgHearts"></div>
+
+  <div class="container">
+
+    <h1 class="title">🐦 My Little Angry Bird 💕</h1>
+    <p class="subtitle" id="subtitle">She's... doing okay-ish right now 👀</p>
+
+    <!-- Bird Character -->
+    <div class="bird-wrapper" id="birdWrapper">
+      <div class="bird" id="bird">
+        <!-- Body -->
+        <div class="bird-body">
+          <!-- Feather tuft -->
+          <div class="tuft">
+            <span class="tuft-f f1"></span>
+            <span class="tuft-f f2"></span>
+            <span class="tuft-f f3"></span>
+          </div>
+          <!-- Eyes -->
+          <div class="eyes">
+            <div class="eye left-eye" id="leftEye">
+              <div class="eyebrow left-brow" id="leftBrow"></div>
+              <div class="pupil" id="leftPupil"></div>
+            </div>
+            <div class="eye right-eye" id="rightEye">
+              <div class="eyebrow right-brow" id="rightBrow"></div>
+              <div class="pupil" id="rightPupil"></div>
+            </div>
+          </div>
+          <!-- Beak -->
+          <div class="beak" id="beak">
+            <div class="beak-top"></div>
+            <div class="beak-bottom"></div>
+          </div>
+          <!-- Cheeks -->
+          <div class="cheek left-cheek" id="leftCheek"></div>
+          <div class="cheek right-cheek" id="rightCheek"></div>
+          <!-- Belly -->
+          <div class="belly"></div>
+        </div>
+        <!-- Wings -->
+        <div class="wing left-wing" id="leftWing"></div>
+        <div class="wing right-wing" id="rightWing"></div>
+        <!-- Tail -->
+        <div class="tail"></div>
+        <!-- Feet -->
+        <div class="feet">
+          <div class="foot left-foot"></div>
+          <div class="foot right-foot"></div>
+        </div>
+      </div>
+
+      <!-- Speech bubble -->
+      <div class="speech-bubble" id="speechBubble">
+        <span id="speechText">...</span>
+      </div>
+    </div>
+
+    <!-- Anger Meter -->
+    <div class="meter-section">
+      <div class="meter-label">
+        <span>😇 Calm</span>
+        <span id="angerLabel">Mood-o-meter</span>
+        <span>😡 FURIOUS</span>
+      </div>
+      <div class="meter-track">
+        <div class="meter-fill" id="meterFill"></div>
+        <div class="meter-emoji" id="meterEmoji">😊</div>
+      </div>
+      <div class="meter-percent" id="meterPercent">50%</div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button class="btn btn-poke" id="pokeBtn">😤 Poke Her</button>
+      <button class="btn btn-hug"  id="hugBtn">🤗 Give Hug</button>
+      <button class="btn btn-compliment" id="complimentBtn">💌 Compliment</button>
+      <button class="btn btn-snack" id="snackBtn">🍭 Give Snack</button>
+    </div>
+
+    <!-- Reason cards -->
+    <div class="reasons-section">
+      <h3 class="reasons-title">💖 Why I Love My Angry Bird</h3>
+      <div class="reasons-grid" id="reasonsGrid"></div>
+    </div>
+
+    <!-- Reset -->
+    <button class="btn btn-reset" id="resetBtn">🔄 New Day, Fresh Start~</button>
+
+  </div>
+
+  <!-- Popup notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

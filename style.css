@@ -1,0 +1,592 @@
+/* ==============================
+   GLOBAL & RESET
+================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+:root {
+  --red:      #FF4C4C;
+  --red-dark: #C0392B;
+  --yellow:   #FFD966;
+  --peach:    #FFB347;
+  --pink:     #FF91A4;
+  --bg:       #FFF0F5;
+  --card:     #FFFFFF;
+  --text:     #4A2040;
+  --soft:     #F8D7E3;
+  --green:    #7BC67E;
+  --blue:     #74C0FC;
+  --radius:   20px;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ==============================
+   BACKGROUND FLOATING HEARTS
+================================ */
+.bg-hearts {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 1.4rem;
+  opacity: 0;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  0%   { opacity: 0.8; transform: translateY(0) rotate(0deg); }
+  100% { opacity: 0;   transform: translateY(-110vh) rotate(30deg); }
+}
+
+/* ==============================
+   CONTAINER
+================================ */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+/* ==============================
+   TITLE
+================================ */
+.title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--red);
+  text-align: center;
+  text-shadow: 2px 3px 0 rgba(255,76,76,0.18);
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: #a05070;
+  text-align: center;
+  font-weight: 600;
+  min-height: 1.4em;
+  transition: all 0.4s ease;
+}
+
+/* ==============================
+   BIRD CHARACTER
+================================ */
+.bird-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.bird {
+  position: relative;
+  width: 170px;
+  height: 190px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  user-select: none;
+}
+
+.bird:active { transform: scale(0.95); }
+
+/* Body */
+.bird-body {
+  position: absolute;
+  top: 14px; left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle at 38% 38%, #ff6b6b, var(--red) 60%, var(--red-dark));
+  border-radius: 55% 55% 50% 50%;
+  box-shadow: inset -6px -8px 18px rgba(0,0,0,0.18), 0 8px 24px rgba(255,76,76,0.3);
+  z-index: 2;
+}
+
+/* Tuft */
+.tuft { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
+.tuft-f {
+  display: block;
+  width: 12px;
+  height: 30px;
+  background: var(--red-dark);
+  border-radius: 50% 50% 30% 30%;
+  transform-origin: bottom center;
+}
+.f1 { transform: rotate(-18deg); height: 24px; }
+.f2 { transform: rotate(0deg);   height: 34px; }
+.f3 { transform: rotate(18deg);  height: 26px; }
+
+/* Eyes */
+.eyes { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 14px; }
+
+.eye {
+  position: relative;
+  width: 36px; height: 36px;
+  background: #fff;
+  border-radius: 50%;
+  border: 3px solid #2c1a1a;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.15);
+  overflow: visible;
+}
+
+.pupil {
+  position: absolute;
+  width: 16px; height: 16px;
+  background: #1a0a0a;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease;
+}
+
+.pupil::after {
+  content: '';
+  position: absolute;
+  width: 5px; height: 5px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px; left: 3px;
+}
+
+/* Eyebrows */
+.eyebrow {
+  position: absolute;
+  top: -10px;
+  width: 36px; height: 7px;
+  background: #2c1a1a;
+  border-radius: 6px;
+  transition: transform 0.4s ease, top 0.4s ease;
+}
+.left-brow  { left: -4px; transform: rotate(25deg); transform-origin: right center; }
+.right-brow { left: -4px; transform: rotate(-25deg); transform-origin: left center; }
+
+/* Beak */
+.beak {
+  position: absolute;
+  top: 70px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column;
+  align-items: center;
+  transition: all 0.4s;
+}
+.beak-top {
+  width: 28px; height: 12px;
+  background: var(--peach);
+  border-radius: 14px 14px 0 0;
+  border: 2px solid #c07020;
+  border-bottom: none;
+}
+.beak-bottom {
+  width: 28px; height: 10px;
+  background: var(--yellow);
+  border-radius: 0 0 14px 14px;
+  border: 2px solid #c07020;
+  border-top: none;
+  transition: height 0.3s;
+}
+
+/* Cheeks */
+.cheek {
+  position: absolute;
+  top: 72px;
+  width: 26px; height: 14px;
+  background: rgba(255,150,150,0.5);
+  border-radius: 50%;
+  transition: opacity 0.5s;
+}
+.left-cheek  { left: 10px; }
+.right-cheek { right: 10px; }
+
+/* Belly */
+.belly {
+  position: absolute;
+  bottom: 18px; left: 50%;
+  transform: translateX(-50%);
+  width: 70px; height: 50px;
+  background: radial-gradient(ellipse, #ffede0 60%, transparent);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+/* Wings */
+.wing {
+  position: absolute;
+  top: 64px;
+  width: 42px; height: 56px;
+  background: radial-gradient(circle at 60% 40%, #ff7070, var(--red-dark));
+  border-radius: 50% 50% 60% 40%;
+  z-index: 1;
+  transition: transform 0.4s ease;
+}
+.left-wing  { left: 4px;  transform: rotate(10deg); transform-origin: top right; }
+.right-wing { right: 4px; transform: rotate(-10deg); transform-origin: top left; }
+
+/* Tail */
+.tail {
+  position: absolute;
+  bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  width: 44px; height: 22px;
+  background: var(--red-dark);
+  border-radius: 0 0 50% 50%;
+  z-index: 1;
+}
+
+/* Feet */
+.feet { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); display: flex; gap: 18px; z-index: 3; }
+.foot {
+  width: 30px; height: 14px;
+  background: var(--peach);
+  border-radius: 0 0 12px 12px;
+  border: 2px solid #c07020;
+  position: relative;
+}
+.foot::before, .foot::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  width: 9px; height: 12px;
+  background: var(--peach);
+  border-radius: 50% 50% 0 0;
+  border: 2px solid #c07020;
+}
+.foot::before { left: 2px; }
+.foot::after  { right: 2px; }
+
+/* ==============================
+   BIRD MOOD STATES
+================================ */
+
+/* -- HAPPY -- */
+.bird.happy .left-brow  { transform: rotate(-10deg); top: -12px; }
+.bird.happy .right-brow { transform: rotate(10deg);  top: -12px; }
+.bird.happy .left-wing  { transform: rotate(-20deg) translateY(-8px); }
+.bird.happy .right-wing { transform: rotate(20deg)  translateY(-8px); }
+.bird.happy .beak-bottom { height: 14px; }
+.bird.happy .cheek { opacity: 1; }
+.bird.happy .bird-body {
+  background: radial-gradient(circle at 38% 38%, #ff9090, #ff6060 60%, #e03030);
+  animation: bounce 0.6s ease infinite alternate;
+}
+
+/* -- NEUTRAL -- */
+.bird.neutral .left-brow  { transform: rotate(12deg);  top: -10px; }
+.bird.neutral .right-brow { transform: rotate(-12deg); top: -10px; }
+.bird.neutral .cheek { opacity: 0.6; }
+
+/* -- ANGRY -- */
+.bird.angry .left-brow  { transform: rotate(35deg); top: -7px; }
+.bird.angry .right-brow { transform: rotate(-35deg); top: -7px; }
+.bird.angry .left-wing  { transform: rotate(-5deg);  }
+.bird.angry .right-wing { transform: rotate(5deg);   }
+.bird.angry .cheek { opacity: 0; }
+.bird.angry .bird-body {
+  background: radial-gradient(circle at 38% 38%, #ff3030, #cc1010 60%, #990000);
+  animation: shake 0.35s ease infinite;
+}
+
+/* -- FURIOUS -- */
+.bird.furious .left-brow  { transform: rotate(42deg) scaleX(1.15); top: -5px; background: #600; }
+.bird.furious .right-brow { transform: rotate(-42deg) scaleX(1.15); top: -5px; background: #600; }
+.bird.furious .cheek { opacity: 0; }
+.bird.furious .bird-body {
+  background: radial-gradient(circle at 38% 38%, #ff1a1a, #aa0000 60%, #700000);
+  animation: shake 0.2s ease infinite;
+}
+.bird.furious .tuft .f2 { height: 40px; }
+
+/* -- LOVE -- */
+.bird.love .left-brow  { transform: rotate(-8deg); top: -14px; }
+.bird.love .right-brow { transform: rotate(8deg);  top: -14px; }
+.bird.love .left-wing  { transform: rotate(-30deg) translateY(-14px); }
+.bird.love .right-wing { transform: rotate(30deg)  translateY(-14px); }
+.bird.love .cheek { opacity: 1; background: rgba(255,120,180,0.6); }
+.bird.love .bird-body {
+  background: radial-gradient(circle at 38% 38%, #ff90c0, #ff5090 60%, #cc2070);
+  animation: heartbeat 0.7s ease infinite;
+}
+
+@keyframes bounce {
+  from { transform: translateX(-50%) translateY(0);   }
+  to   { transform: translateX(-50%) translateY(-6px);}
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  25%       { transform: translateX(calc(-50% - 3px)) rotate(-2deg); }
+  75%       { transform: translateX(calc(-50% + 3px)) rotate(2deg); }
+}
+@keyframes heartbeat {
+  0%, 100% { transform: translateX(-50%) scale(1);    }
+  50%       { transform: translateX(-50%) scale(1.06); }
+}
+
+/* ==============================
+   SPEECH BUBBLE
+================================ */
+.speech-bubble {
+  position: absolute;
+  top: 0px;
+  right: -10px;
+  max-width: 155px;
+  background: #fff;
+  border: 2.5px solid var(--pink);
+  border-radius: 18px 18px 18px 4px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  box-shadow: 0 4px 14px rgba(255,100,150,0.15);
+  opacity: 0;
+  transform: scale(0.8) translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  line-height: 1.4;
+  text-align: left;
+  z-index: 10;
+}
+.speech-bubble.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -10px; left: 14px;
+  border: 5px solid transparent;
+  border-top-color: var(--pink);
+}
+
+/* ==============================
+   ANGER METER
+================================ */
+.meter-section {
+  width: 100%;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  box-shadow: 0 4px 18px rgba(255,76,76,0.1);
+  border: 2px solid var(--soft);
+}
+
+.meter-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #b06080;
+  margin-bottom: 8px;
+}
+
+#angerLabel {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.meter-track {
+  width: 100%;
+  height: 28px;
+  background: #ffe0ec;
+  border-radius: 14px;
+  overflow: visible;
+  position: relative;
+  border: 2px solid #f9c0d4;
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #7BC67E, #FFD966 40%, #ff8c42 70%, #FF4C4C);
+  transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  width: 50%;
+}
+
+.meter-emoji {
+  position: absolute;
+  right: -14px; top: -6px;
+  font-size: 1.6rem;
+  transition: right 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.meter-percent {
+  text-align: right;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--red);
+  margin-top: 6px;
+}
+
+/* ==============================
+   BUTTONS
+================================ */
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 800;
+  padding: 13px 10px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.15s ease;
+  letter-spacing: 0.2px;
+}
+.btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
+.btn:active { transform: scale(0.96); }
+
+.btn-poke        { background: #ffe0e0; color: #c0202a; }
+.btn-hug         { background: #ffe8d6; color: #b05010; }
+.btn-compliment  { background: #fde0f0; color: #b0206a; }
+.btn-snack       { background: #fff3cd; color: #805500; }
+.btn-reset       { background: var(--soft); color: #8a2050; font-size: 0.88rem; padding: 12px 28px; border-radius: 24px; width: 100%; margin-top: 4px; }
+
+/* ==============================
+   REASONS SECTION
+================================ */
+.reasons-section {
+  width: 100%;
+}
+
+.reasons-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--red);
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.reasons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.reason-card {
+  background: var(--card);
+  border: 2px solid var(--soft);
+  border-radius: 16px;
+  padding: 14px 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.45;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(255,100,150,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+.reason-card:hover {
+  transform: translateY(-3px) rotate(-0.5deg);
+  box-shadow: 0 8px 18px rgba(255,100,150,0.15);
+}
+.reason-card .r-emoji { font-size: 1.5rem; display: block; margin-bottom: 6px; }
+
+/* ==============================
+   TOAST NOTIFICATION
+================================ */
+.toast {
+  position: fixed;
+  bottom: 30px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #fff;
+  border: 2.5px solid var(--pink);
+  border-radius: 50px;
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text);
+  box-shadow: 0 6px 20px rgba(255,76,76,0.18);
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 100;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==============================
+   POP ANIMATION FOR BIRD CLICK
+================================ */
+@keyframes pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12) rotate(-4deg); }
+  70%  { transform: scale(0.95) rotate(2deg); }
+  100% { transform: scale(1); }
+}
+.bird.popping { animation: pop 0.4s ease forwards !important; }
+
+/* ==============================
+   STEAM EFFECT
+================================ */
+.steam {
+  position: absolute;
+  top: -10px;
+  font-size: 1.3rem;
+  animation: steamUp 1s ease forwards;
+  pointer-events: none;
+  z-index: 20;
+}
+@keyframes steamUp {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-50px) scale(1.4); }
+}
+
+/* ==============================
+   HEART BURST
+================================ */
+.heart-burst {
+  position: absolute;
+  top: 10px;
+  font-size: 1.4rem;
+  animation: burstOut 0.8s ease forwards;
+  pointer-events: none;
+  z-index: 20;
+}
+@keyframes burstOut {
+  0%   { opacity: 1; transform: translate(0, 0) scale(0.5); }
+  60%  { opacity: 1; transform: translate(var(--dx), var(--dy)) scale(1.1); }
+  100% { opacity: 0; transform: translate(calc(var(--dx)*1.6), calc(var(--dy)*1.6)) scale(0.7); }
+}
+
+/* ==============================
+   RESPONSIVE
+================================ */
+@media (max-width: 400px) {
+  .title { font-size: 1.7rem; }
+  .buttons { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .reasons-grid { grid-template-columns: 1fr; }
+  .bird { width: 150px; height: 170px; }
+  .bird-body { width: 122px; height: 122px; }
+}
